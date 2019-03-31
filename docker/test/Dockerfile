@@ -1,14 +1,10 @@
 ARG testImage=auto-test-prod:latest
-FROM composer as composer
-COPY ./code /usr/src/app
-
-WORKDIR /usr/src/app
-
-CMD composer install --ignore-platform-reqs
-
 FROM $testImage
 
-COPY --from=composer /usr/src/app/vendor /usr/src/app/vendor
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Install dev deps for tests
+RUN composer install
 
 # This can run more then one set of tests
 CMD php bin/phpunit
