@@ -1,4 +1,4 @@
-FROM php:7.3
+FROM php:7.3.3
 
 RUN apt-get update && \
     apt-get install -y git libzip-dev libxml2-dev && \
